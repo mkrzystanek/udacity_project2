@@ -82,7 +82,7 @@ class HuffmanCoding:
         new_list.insert(index, new_node)
         return self.merge_nodes(new_list)
 
-    def huffman_decoding(self, data ,tree):
+    def huffman_decoding(self, data, tree):
         """
         Each code is a path to get character of string. 0 means get left child, 1 means get right child. Characters are
         only stored in tree leafs.
@@ -90,7 +90,25 @@ class HuffmanCoding:
         :param tree:
         :return: decodes string
         """
-        pass
+        answer = []
+        while len(data) != 0:
+            data, answer = self.get_string(data, tree.root, answer)
+
+        decoded_string = ""
+        for c in answer:
+            decoded_string = decoded_string + c
+
+        return decoded_string
+
+    def get_string(self, data, node, answer):
+        if not node.has_right() and not node.has_left():
+            answer.append(node.character)
+            return data, answer
+        else:
+            if data[0] == "0" and node.has_left():
+                return self.get_string(data[1:], node.left, answer)
+            if data[0] == "1" and node.has_right():
+                return self.get_string(data[1:], node.right, answer)
 
 
 if __name__ == "__main__":
@@ -117,12 +135,16 @@ if __name__ == "__main__":
     # get binary codes tests
 
     code = huffman_coding.calculate_binary_codes(tree1)
-    print(code)
+    # print(code)
     # assert code == ['00', '010', '011', '1']
+
+    # encoding test
     encoded, tree2 = huffman_coding.huffman_encoding(input)
-    print(encoded)
+    # print(encoded)
 
-
+    # decoding test
+    decoded_string = huffman_coding.huffman_decoding(encoded, tree2)
+    # print(decoded_string)
 
     codes = {}
 
@@ -132,11 +154,11 @@ if __name__ == "__main__":
     print ("The content of the data is: {}\n".format(a_great_sentence))
 
     encoded_data, tree = huffman_coding.huffman_encoding(a_great_sentence)
-    #
-    # print ("The size of the encoded data is: {}\n".format(sys.getsizeof(int(encoded_data, base=2))))
-    # print ("The content of the encoded data is: {}\n".format(encoded_data))
-    #
-    # decoded_data = huffman_decoding(encoded_data, tree)
-    #
-    # print ("The size of the decoded data is: {}\n".format(sys.getsizeof(decoded_data)))
-    # print ("The content of the encoded data is: {}\n".format(decoded_data))
+
+    print ("The size of the encoded data is: {}\n".format(sys.getsizeof(int(encoded_data, base=2))))
+    print ("The content of the encoded data is: {}\n".format(encoded_data))
+
+    decoded_data = huffman_coding.huffman_decoding(encoded_data, tree)
+
+    print ("The size of the decoded data is: {}\n".format(sys.getsizeof(decoded_data)))
+    print ("The content of the encoded data is: {}\n".format(decoded_data))
