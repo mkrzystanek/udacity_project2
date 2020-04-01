@@ -43,7 +43,7 @@ class HuffmanCoding:
         # 4. Determine binary codes for leaf nodes:
         #         1. Need to traverse the tree in pre-order fashion
         #         2. If on the way to reaching leaf algorithm passes left node, 0 is appended to code
-        #         3. If on a way to reaching leaf algorithim passes right node, 1 is appended to code
+        #         3. If on a way to reaching leaf algorithm passes right node, 1 is appended to code
         binary_codes = self.calculate_binary_codes(huffman_tree)
         encoded_string = ""
         for c in data:
