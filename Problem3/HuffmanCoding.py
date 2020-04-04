@@ -6,7 +6,7 @@ from HuffmanTree import Node
 
 class HuffmanCoding:
     def encode(self, data):
-        """ Taking all steps of the method, the time complexity is O(n^2)"""
+        """ Taking all steps of the method int account, the time complexity is O(n^2)"""
 
         # 1. Determine a frequency of each letter in given string: O(n^2)
         frequencies = get_frequency_list(data)
