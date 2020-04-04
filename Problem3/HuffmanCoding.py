@@ -6,16 +6,18 @@ from HuffmanTree import Node
 
 class HuffmanCoding:
     def encode(self, data):
-        # 1. Determine a frequency of each letter in given string
+        """ Taking all steps of the method, the time complexity is O(n^2)"""
+
+        # 1. Determine a frequency of each letter in given string: O(n^2)
         frequencies = get_frequency_list(data)
 
-        # 2. Create a list with nodes that hold letter and its frequency
+        # 2. Create a list with nodes that hold letter and its frequency: O(n)
         nodes_list = convert_to_nodes_list(frequencies)
 
-        # 3. Build Huffman tree from the list of Nodes
+        # 3. Build Huffman tree from the list of Nodes: O(n^2)
         huffman_tree = Tree(self.merge_nodes(nodes_list))
 
-        # 4. Determine binary codes for leaf nodes
+        # 4. Determine binary codes for leaf nodes: O(n)
         binary_codes = self.calculate_binary_codes(huffman_tree)
 
         # 5. Replace character in string with its code. Because iteration over string is needed, time complexity is O(n)
@@ -59,7 +61,7 @@ class HuffmanCoding:
         modified list. When list has only one element, it means we got a tree root.
         Steps of the method include iterating over the nodes list, which means one method call is O(n) in the worst
         case. The number of recursive calls is also dependent on the length of the input list. This means the complexity
-        of "merge_nodes: method is O(n^2).
+        of "merge_nodes" method is O(n^2).
         :param nodes_list: sorted list of Nodes holding letters and its frequencies
         :return: root of the Huffman Tree
         """
@@ -84,11 +86,13 @@ class HuffmanCoding:
         """
         Each code is a path to get character of string. 0 means get left child, 1 means get right child. Characters are
         only stored in tree leafs.
+        The most complex step of the method is of O(n log n) time complexity, so it is the same for all "decode" method.
         :param data: codes to find letters of the string
         :param tree:
         :return: decodes string
         """
-        # 1. Get a list of decoded characters
+        # 1. Get a list of decoded characters. The "while" loop takes as many iterations as there is encoded characters.
+        # The method call inside the loop has O(log n) complexity. This step overall complexity is O(n log n)
         answer = []
         while len(data) != 0:
             data, answer = self.get_string(data, tree.root, answer)
@@ -104,9 +108,8 @@ class HuffmanCoding:
         """
         Method moves across the tree by checking the first character of the encoded data string, moving to the
         respective child node, and calling itself for the next characters of the data. When it reaches the leaf node,
-        the character value of leaf is appended to the "answer" list. Upon returning to the root node, "answer" list
-        contains all characters in right order. The recursive method is called for every node in the tree, so its
-        time complexity is O(n).
+        the character value of leaf is appended to the "answer" list. The time complexity of reaching one of the leaves
+        is O(log n).
         :param data: encoded string
         :param node: node to check
         :param answer: list of decoded characters fso far
