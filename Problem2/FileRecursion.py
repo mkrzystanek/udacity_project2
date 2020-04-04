@@ -1,11 +1,5 @@
 import os
 
-# As the problem title suggests, the easy way to achieve this result is to use a recursive function. The "check_files"
-# function checks if given directory is a file, then checks if the file has desired suffix. If directory is not a file,
-# it calls itself for every subdirectory. Because this function must be called on every subdirectory of the root
-# directory to find all the files with given suffix, the time complexity depends on the total number of subdirectories.
-# If the number is n, the overall complexity is O(n).
-
 
 def find_files(suffix, path):
     """
@@ -45,3 +39,16 @@ def check_files(suffix, path, result_list, parent_dir):
 directories = find_files(".c", ".")
 print(directories)
 assert directories == ['./testdir/subdir3/subsubdir1/b.c', './testdir/t1.c', './testdir/subdir1/a.c', './testdir/subdir5/a.c']
+
+directories2 = find_files(".gitkeep", ".")
+assert directories2 == ['./testdir/subdir4/.gitkeep', './testdir/subdir2/.gitkeep']
+
+directories3 = find_files(".txt", ".")
+assert directories3 == []
+
+directories4 = find_files("", ".")
+assert directories4 == ['./explanation2.md', './FileRecursion.py', './testdir/subdir4/.gitkeep',
+                        './testdir/subdir3/subsubdir1/b.h', './testdir/subdir3/subsubdir1/b.c', './testdir/t1.h',
+                        './testdir/t1.c', './testdir/subdir1/a.c', './testdir/subdir1/a.h', './testdir/subdir2/.gitkeep',
+                        './testdir/subdir5/a.c', './testdir/subdir5/a.h']
+

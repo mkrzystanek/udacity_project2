@@ -42,6 +42,8 @@ class HuffmanCoding:
         :param codes: the list of paths to every tree leaf calculated so far.
         :return: the list of paths to every tree leaf calculated so far including the path to current node
         """
+        if node is None:
+            return ""
         if node.has_left():
             left_path = path + "0"
             self.get_codes(node.left, left_path, codes)
@@ -65,6 +67,8 @@ class HuffmanCoding:
         :param nodes_list: sorted list of Nodes holding letters and its frequencies
         :return: root of the Huffman Tree
         """
+        if len(nodes_list) == 0:
+            return None
         if len(nodes_list) == 1:
             return nodes_list[0]
         new_node = Node()
@@ -191,19 +195,28 @@ if __name__ == "__main__":
     # print(decoded_string)
     assert decoded_string == "alabama"
 
-    codes = {}
+
+    def test(string):
+        print ("The size of the data is: {}\n".format(sys.getsizeof(string)))
+        print ("The content of the data is: {}\n".format(string))
+
+        encoded_data, tree = huffman_coding.encode(string)
+
+        print ("The size of the encoded data is: {}\n".format(sys.getsizeof(int(encoded_data, base=2))))
+        print ("The content of the encoded data is: {}\n".format(encoded_data))
+
+        decoded_data = huffman_coding.decode(encoded_data, tree)
+
+        print ("The size of the decoded data is: {}\n".format(sys.getsizeof(decoded_data)))
+        print ("The content of the encoded data is: {}\n".format(decoded_data))
+        assert decoded_data == string
+
 
     a_great_sentence = "The bird is the word"
+    empty = ""
+    long_sentence = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    # test(a_great_sentence)
+    test(empty)
+    # test(long_sentence)
 
-    print ("The size of the data is: {}\n".format(sys.getsizeof(a_great_sentence)))
-    print ("The content of the data is: {}\n".format(a_great_sentence))
 
-    encoded_data, tree = huffman_coding.encode(a_great_sentence)
-
-    print ("The size of the encoded data is: {}\n".format(sys.getsizeof(int(encoded_data, base=2))))
-    print ("The content of the encoded data is: {}\n".format(encoded_data))
-
-    decoded_data = huffman_coding.decode(encoded_data, tree)
-
-    print ("The size of the decoded data is: {}\n".format(sys.getsizeof(decoded_data)))
-    print ("The content of the encoded data is: {}\n".format(decoded_data))
