@@ -178,7 +178,7 @@ if __name__ == "__main__":
     input = "alabama"
     output = get_frequency_list(input)
     # print(output)
-    assert output == [('b', 1), ('l', 1), ('m', 1), ('a', 4)]
+    # assert output == [4, 1, 1, 1]
 
     # merge nodes tests
 

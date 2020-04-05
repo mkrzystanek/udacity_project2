@@ -1,13 +1,3 @@
-
-# To implement "union" and "intersection" functions for two LinkedLists I chose to leverage in-build Python set
-# data structure, that already provides an easy way of achieving this result. For both functions, first the
-# "get_sets()" function is called, that converts two LinkedLists into two sets of Nodes. It is achieved by iterating
-# over both of the LinkedLists, so the time complexity of this method call is O(n + m), where n and m are lengths of the
-# lists. Next, inside "union" and "intersection" methods, the respective set operation is performed. Both of those
-# operations have time complexity of O(n + m), which means, the overall complexity of "union" and "intersection" is
-#  O(n + m) as well.
-
-
 class Node:
     def __init__(self, value):
         self.value = value
@@ -61,31 +51,39 @@ class LinkedList:
 
 
 def union(llist_1, llist_2):
-    set_representation1, set_representation2 = get_sets(llist_1, llist_2)
-    return set_representation1.union(set_representation2)
+    union_set = set()
+    union_set = add_to_set(llist_1, union_set)
+    union_set = add_to_set(llist_2, union_set)
+
+    return convert_to_linked_list(union_set)
 
 
 def intersection(llist_1, llist_2):
-    set_representation1, set_representation2 = get_sets(llist_1, llist_2)
-    return set_representation1.intersection(set_representation2)
+    set_1 = add_to_set(llist_1, set())
+    set_2 = add_to_set(llist_2, set())
+    intersection_set = set()
+
+    for element in set_1:
+        if element in set_2:
+            intersection_set.add(element)
+
+    return convert_to_linked_list(intersection_set)
 
 
-def get_sets(llist_1, llist_2):
-    set_representation1 = set()
-    set_representation2 = set()
-
-    current = llist_1.head
+def add_to_set(llist, set):
+    current = llist.head
     while current:
-        set_representation1.add(current)
+        set.add(current.value)
         current = current.next
 
-    current = llist_2.head
-    while current:
-        set_representation2.add(current)
-        current = current.next
+    return set
 
-    return set_representation1, set_representation2
 
+def convert_to_linked_list(a_set):
+    a_list = LinkedList()
+    for element in a_set:
+        a_list.append(element)
+    return a_list
 
 # Test case 1
 linked_list_1 = LinkedList()
@@ -101,9 +99,9 @@ for i in element_2:
     linked_list_2.append(i)
 
 print(union(linked_list_1, linked_list_2))
-assert union(linked_list_1, linked_list_2) == {32, 65, 2, 35, 3, 4, 6, 1, 9, 11, 21}
+assert str(union(linked_list_1, linked_list_2)) == "32 -> 65 -> 2 -> 35 -> 3 -> 4 -> 6 -> 1 -> 9 -> 11 -> 21 -> "
 print(intersection(linked_list_1, linked_list_2))
-assert intersection(linked_list_1, linked_list_2) == {4, 21, 6}
+assert str(intersection(linked_list_1, linked_list_2)) == "4 -> 21 -> 6 -> "
 
 # Test case 2
 
@@ -120,9 +118,9 @@ for i in element_2:
     linked_list_4.append(i)
 
 print(union(linked_list_3, linked_list_4))
-assert union(linked_list_3, linked_list_4) == {65, 2, 35, 3, 4, 6, 1, 7, 8, 9, 11, 21, 23}
+assert str(union(linked_list_3, linked_list_4)) == "65 -> 2 -> 35 -> 3 -> 4 -> 6 -> 1 -> 7 -> 8 -> 9 -> 11 -> 21 -> 23 -> "
 print(intersection(linked_list_3, linked_list_4))
-assert intersection(linked_list_3, linked_list_4) == set()
+assert str(intersection(linked_list_3, linked_list_4)) == ""
 
 # Test case 3
 
@@ -139,9 +137,9 @@ for i in element_2:
     linked_list_6.append(i)
 
 print(union(linked_list_5, linked_list_6))
-assert union(linked_list_5, linked_list_6) == {1, 21, 7, 8, 9, 11}
+assert str(union(linked_list_5, linked_list_6)) == "1 -> 7 -> 8 -> 9 -> 11 -> 21 -> "
 print(intersection(linked_list_5, linked_list_6))
-assert intersection(linked_list_5, linked_list_6) == set()
+assert str(intersection(linked_list_5, linked_list_6)) == ""
 
 # Test case 4
 
@@ -158,6 +156,6 @@ for i in element_2:
     linked_list_8.append(i)
 
 print(union(linked_list_7, linked_list_8))
-assert union(linked_list_7, linked_list_8) == {1, 4, 21, 7, 8, 11}
+assert str(union(linked_list_7, linked_list_8)) == "1 -> 4 -> 7 -> 8 -> 11 -> 21 -> "
 print(intersection(linked_list_7, linked_list_8))
-assert intersection(linked_list_7, linked_list_8) == {4}
+assert str(intersection(linked_list_7, linked_list_8)) == "4 -> "
