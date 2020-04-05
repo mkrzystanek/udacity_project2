@@ -31,7 +31,11 @@ def check_files(suffix, path, result_list, parent_dir):
         else:
             return
     else:
-        subdirectories_list = os.listdir(full_directory)
+        try:
+            subdirectories_list = os.listdir(full_directory)
+        except FileNotFoundError:
+            print("Failed to find directory: {}".format(full_directory))
+            return
         for dir in subdirectories_list:
             check_files(suffix, dir, result_list, full_directory)
 
@@ -52,3 +56,6 @@ assert directories4 == ['./explanation2.md', './FileRecursion.py', './testdir/su
                         './testdir/t1.c', './testdir/subdir1/a.c', './testdir/subdir1/a.h', './testdir/subdir2/.gitkeep',
                         './testdir/subdir5/a.c', './testdir/subdir5/a.h']
 
+# prints "Failed to find directory: ./home"
+directories5 = find_files(".c", "./home")
+assert directories5 == []
