@@ -1,9 +1,6 @@
 import hashlib
 import datetime
 
-# Because I chose to implement BlockChain as LinkedList, operations like "add" will take O(1), while operations that
-# need traversing over chain (like "print_chain") will take O(n).
-
 
 class Block:
     def __init__(self, timestamp, data, previous_hash):
@@ -15,7 +12,7 @@ class Block:
 
     def calc_hash(self):
         sha = hashlib.sha256()
-        hash_str = self.data.encode('utf-8')
+        hash_str = str(self.data).encode('utf-8')
         sha.update(hash_str)
         return sha.hexdigest()
 
@@ -50,13 +47,29 @@ class BlockChain:
             print(current)
             current = current.next
 
+    def __str__(self):
+        result = []
+        current = self.head
+        while current:
+            result.append(current.data)
+            current = current.next
+        return str(result)
+
 
 chain = BlockChain()
 chain.add("cat")
 chain.add("dog")
-chain.add("giraffe")
-chain.add("pangolin")
+assert chain.head.data == "cat"
+assert chain.tail.data == "dog"
+
+chain.add("")
+chain.add("aaa")
+chain.add(23)
 chain.print_chain()
+assert str(chain) == "['cat', 'dog', '', 'aaa', 23]"
+
+chain.add("zebra")
+assert str(chain) == "['cat', 'dog', '', 'aaa', 23, 'zebra']"
 
 block = chain.head
 previous_hash = 0
@@ -64,3 +77,5 @@ while block:
     assert block.previous_hash == previous_hash
     previous_hash = block.hash
     block = block.next
+
+
