@@ -21,8 +21,8 @@ class HuffmanCoding:
         binary_codes = self.calculate_binary_codes(huffman_tree)
 
         # 5. Replace character in string with its code. Because iteration over string is needed, time complexity is O(n)
-        if len(binary_codes) == 0:
-            return "-1", None
+        if len(binary_codes) < 2:
+            return "-1", huffman_tree
         encoded_string = ""
         for c in data:
             encoded_string = encoded_string + binary_codes[c]
@@ -97,8 +97,14 @@ class HuffmanCoding:
         :param tree:
         :return: decodes string
         """
-        if data == "-1" or tree is None:
-            return ""
+        decoded_string = ""
+        if data == "-1":
+            if tree.root is None:
+                return ""
+            for n in range(tree.root.frequency):
+                decoded_string += tree.root.character
+            return decoded_string
+
         # 1. Get a list of decoded characters. The "while" loop takes as many iterations as there is encoded characters.
         # The method call inside the loop has O(log n) complexity. This step overall complexity is O(n log n)
         answer = []
@@ -106,7 +112,6 @@ class HuffmanCoding:
             data, answer = self.get_string(data, tree.root, answer)
 
         # 2. Convert list to decoded string, O(n)
-        decoded_string = ""
         for c in answer:
             decoded_string = decoded_string + c
 
@@ -218,10 +223,12 @@ if __name__ == "__main__":
 
 
     a_great_sentence = "The bird is the word"
+    duplicates = "aaaaa"
     empty = ""
     long_sentence = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
     test(a_great_sentence)
     test(empty)
     test(long_sentence)
+    test(duplicates)
 
 
