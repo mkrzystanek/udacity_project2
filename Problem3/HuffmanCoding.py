@@ -66,6 +66,9 @@ class HuffmanCoding:
         Steps of the method include iterating over the nodes list, which means one method call is O(n) in the worst
         case. The number of recursive calls is also dependent on the length of the input list. This means the complexity
         of "merge_nodes" method is O(n^2).
+        One call of merge_nodes() has space complexity of O(n-2), because it involves iterating over the input array,
+        decreased by two elements. However, this is a recursive method. The maximum cells on call stack it can take is
+        directly dependent on the length of input list. Threrefore, the overall method space complexity is O(n^2).
         :param nodes_list: sorted list of Nodes holding letters and its frequencies
         :return: root of the Huffman Tree
         """
@@ -141,7 +144,7 @@ class HuffmanCoding:
 def convert_to_nodes_list(letter_frequencies):
     """
     A function to convert the tuples of letters and their frequencies to list of Nodes, that will be used to build
-    Huffman Tree. Time complexity is O(n).
+    Huffman Tree. Time complexity is O(n). Spsce complexity in O(n).
     :param letter_frequencies: set of tuples of letter and its frequency
     :return: list of Nodes containing letter and its frequency
     """
@@ -154,7 +157,8 @@ def convert_to_nodes_list(letter_frequencies):
 def get_frequency_list(string):
     """
     The frequency of each letter it the given string is determined. Because it involves iterating over the string
-    inside for loop of elements of string characters set, the worst case time complexity is O(n^2).
+    inside for loop of elements of string characters set, the worst case time complexity is O(n^2). The space complexity
+    is O(n), because the space taken by "frequencies" list is dependent on the length of input string in linear way.
     :param string: Any string
     :return: sorted list of tuples of letter and its frequency
     """

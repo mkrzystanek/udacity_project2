@@ -11,6 +11,12 @@ to hash map, which are both of constant complexity. In some cases,
 it also involves removing an element form hash map and linked list,
 but these operations are also O(1).
 
-###### Sace complexity:
+###### Space complexity:
 
+**get() method**
 
+O(1), as this method only operates on constant number of variables.
+
+**set() method**
+
+O(1), as this method only operates on constant number of variables.
