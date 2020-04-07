@@ -1,3 +1,5 @@
+###### Time complexity:
+
 Taking all steps of the "encode" method into account, the time complexity is O(n^2):
 
    1. Determine a frequency of each letter in given string: O(n^2)
@@ -10,3 +12,5 @@ The most complex step of the "decode" method is of O(n log n) time complexity, s
     
    1. Get a list of decoded characters. The "while" loop takes as many iterations as there is encoded characters. The method call inside the loop has O(log n) complexity. This step overall complexity is O(n log n)
    2. Convert list to decoded string, which is O(n)
+   
+###### Sace complexity:
