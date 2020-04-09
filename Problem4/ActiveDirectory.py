@@ -36,10 +36,12 @@ def is_user_in_group(user, group):
 
 def find_in_group(user, group, checked):
     """
-    Function searches the tree of groups and users recursively. Returns True if user is in group, if not, calls itself
-    with every sub group. Because "users" and "groups" of Group object are sets, using "in" operator has only O(1)
-    complexity. However, because in this algorithm groups are visited one by one, the overall complexity depends on the
-    total number of groups in the tree, which is O(n).
+    Function "find_in_group" searches the tree of groups and users recursively. Returns True if user is in group, if
+    not, calls itself with every sub group. Using "in" operator has O(n) complexity. Because in this algorithm groups
+    are visited one by one, the overall complexity depends on the total number of groups in the tree, and is O(n^2).
+    For each function call lists returned by "get_users()" and "get_groups()" are read into memory, so the space
+    complexity is O(n). However, function is recursive, and its calls are put on the call stack for all nodes in tree
+    (in a worst case scenario). Therefore, the space complexity of "find_in_group()" is O(n^2)
     :param user: user to find
     :param group: group to search
     :param checked: a list of groups that were already checked

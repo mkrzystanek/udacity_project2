@@ -128,10 +128,11 @@ class HuffmanCoding:
         Method moves across the tree by checking the first character of the encoded data string, moving to the
         respective child node, and calling itself for the next characters of the data. When it reaches the leaf node,
         the character value of leaf is appended to the "answer" list. The time complexity of reaching one of the leaves
-        is O(log n).
+        is O(log n). Space complexity is O(n) as the call stack size is dependent on the tree height, and it is the same
+        as number of nodes in the worst case scenario.
         :param data: encoded string
         :param node: node to check
-        :param answer: list of decoded characters fso far
+        :param answer: list of decoded characters so far
         :return: tuple of data for current node and answer list
         """
         if not node.has_right() and not node.has_left():
