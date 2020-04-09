@@ -38,6 +38,9 @@ class HuffmanCoding:
         complete. Path is added to the "codes" list. When method reaches the root node again it returns the "codes" list,
         which contain a path to every leaf in the given tree. Because it is needed to visit every node in the tree,
         the time complexity of "get_codes" is directly dependent on number of nodes, so time complexity is O(n).
+        Space complexity is O(m), where m is the height of the tree, as the method is recursive and each step to reach
+        next child is one cell on call stack. Because in the worst case scenario, in case of the unbalanced tree,
+        the height is the same as number of elements, we can say that the space complexity is O(n).
         :param node: node to check
         :param path: the path to current node from root, expressed in string of "1" and "0", which mean "go to left node"
         and "go to right node" respectively
@@ -68,7 +71,7 @@ class HuffmanCoding:
         of "merge_nodes" method is O(n^2).
         One call of merge_nodes() has space complexity of O(n-2), because it involves iterating over the input array,
         decreased by two elements. However, this is a recursive method. The maximum cells on call stack it can take is
-        directly dependent on the length of input list. Threrefore, the overall method space complexity is O(n^2).
+        directly dependent on the length of input list. Therefore, the overall method space complexity is O(n^2).
         :param nodes_list: sorted list of Nodes holding letters and its frequencies
         :return: root of the Huffman Tree
         """
