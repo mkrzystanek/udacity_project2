@@ -32,7 +32,7 @@ Taking all steps of the "encode" method into account, the space complexity is O(
 
 **decode() method**
 
-The most complex step of the "decode" method is of O(n log n) time complexity, so it is the same for whole method:
+The most complex step of the "decode" method is of O(n^2) space complexity, so it is the same for whole method:
     
    1. Get a list of decoded characters: O(n^2)
    2. Convert list to decoded string, which is O(n)
