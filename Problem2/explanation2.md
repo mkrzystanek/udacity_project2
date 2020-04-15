@@ -3,7 +3,7 @@
 **find_files() function:**
 
 Calling this function involves calling "check_files()" recursive function, which visits every subdirectory of root
-directory tree. If total number of subdirectories is n, time complexity is O(n).
+directory tree. Time complexity is O(depth x avg. number of directory in each level).
 
 ###### Space complexity:
 

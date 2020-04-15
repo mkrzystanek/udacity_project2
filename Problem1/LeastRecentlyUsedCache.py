@@ -39,7 +39,8 @@ class LinkedList:
 
     def pop(self):
         removed = self.tail
-        self.tail = removed.previous
+        if self.tail.previous is not None:
+            self.tail = removed.previous
         return removed
 
     def __repr__(self):
@@ -57,6 +58,8 @@ class LinkedList:
 class LRU_Cache:
 
     def __init__(self, capacity):
+        if capacity < 1:
+            raise ValueError("Cache capacity cannot be less than zero")
         self.MAX_CACHE_CAPACITY = capacity
         self.cache = dict()
         self.list = LinkedList()
@@ -138,4 +141,16 @@ assert our_cache.get("1") == "aaa"
 print(our_cache.get(1))
 assert our_cache.get(1) == 9
 
+cache2 = LRU_Cache(1)
+cache2.set("one", 1)
+cache2.set("two", 2)
 
+assert cache2.get("one") == -1
+assert cache2.get("two") == 2
+
+# Should raise an exception when there is an attempt to create a cache with capacity less than 1
+try:
+    cache3 = LRU_Cache(0)
+    assert False
+except ValueError:
+    assert True

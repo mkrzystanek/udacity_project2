@@ -31,6 +31,7 @@ class BlockChain:
     def __init__(self):
         self.head = None
         self.tail = None
+        self.size = 0
 
     def add(self, value):
         if self.head is None:
@@ -40,6 +41,7 @@ class BlockChain:
             new_block = Block(get_timestamp(), value, self.tail.get_hash())
             self.tail.next = new_block
             self.tail = new_block
+        self.size += 1
 
     def print_chain(self):
         current = self.head
@@ -67,9 +69,21 @@ chain.add("aaa")
 chain.add(23)
 chain.print_chain()
 assert str(chain) == "['cat', 'dog', '', 'aaa', 23]"
+assert chain.size == 5
 
 chain.add("zebra")
 assert str(chain) == "['cat', 'dog', '', 'aaa', 23, 'zebra']"
+assert chain.size == 6
+
+chain2 = BlockChain()
+chain2.add("pink")
+chain2.add("gray")
+assert str(chain2) == "['pink', 'gray']"
+assert chain2.size == 2
+
+chain3 = BlockChain()
+assert str(chain3) == "[]"
+assert chain3.size == 0
 
 block = chain.head
 previous_hash = 0
