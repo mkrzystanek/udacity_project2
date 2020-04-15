@@ -17,6 +17,7 @@ The most complex step of the "decode" method is of O(n log n) time complexity, s
    1. Get a list of decoded characters. The "while" loop takes as many iterations as there is encoded characters. The method call inside the loop has O(log n) complexity. This step overall complexity is O(n log n)
    2. Convert list to decoded string, which is O(n)
    
+To summarise, the final time complexity of entire algorithm (engoding + decoding) is O(n^2)
    
 ###### Space complexity:
 
@@ -36,3 +37,5 @@ The most complex step of the "decode" method is of O(n^2) space complexity, so i
     
    1. Get a list of decoded characters: O(n^2)
    2. Convert list to decoded string, which is O(n)
+   
+To summarise, the final space complexity of entire algorithm (engoding + decoding) is O(n^2)
